@@ -15,13 +15,16 @@ import model.Transactions;
 @SuppressWarnings("serial")
 @WebServlet("/fundTranser")
 public class TransactionController<E> extends HttpServlet {
-	@SuppressWarnings("unchecked")
+	int fund_amount = 0;
+	@SuppressWarnings({})
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		TransactionDAO dao = new TransactionDAO();
+		fund_amount = Integer.parseInt(request.getParameter("amount"));
 		try {
-			Transactions obj = new Transactions();
-			obj.setBalance(1000);
+			Transactions transaction = new Transactions();
+			transaction.setBalance(fund_amount);
 			List<Integer> res = dao.doTransaction();
 			request.setAttribute("TransactionDAO", res);
 		} catch (SQLException e) {
